@@ -17,6 +17,10 @@ python manage.py runserver
 
 Open http://127.0.0.1:8000/. Copy `.env.example` to `.env` and configure SMTP for real email; otherwise submissions are printed in the terminal.
 
+## Updating prices
+
+Edit [`data/pricing.csv`](data/pricing.csv) to change the main service prices. Keep the header row (`service,gbp,usd,eur`) and add one row per service. Prices are shown on the website when the next page request is made; no HTML or Python changes are required.
+
 ## Production
 
 Set `DJANGO_SECRET_KEY`, `DJANGO_DEBUG=False`, `DJANGO_ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS`, and the email variables in `.env.example`. Then run:

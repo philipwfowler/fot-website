@@ -5,5 +5,7 @@ class WebsiteTests(TestCase):
         response = self.client.get(reverse("home"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Confidence in every")
+        self.assertContains(response, "£112")
+        self.assertContains(response, "£168")
     def test_contact_page(self):
         self.assertEqual(self.client.get(reverse("contact")).status_code, 200)
