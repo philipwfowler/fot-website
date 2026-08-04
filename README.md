@@ -23,6 +23,8 @@ Edit [`data/pricing.csv`](data/pricing.csv) to change the main service prices. K
 
 Optional add-ons are managed separately in [`data/additional_services.csv`](data/additional_services.csv), using the same columns. The current add-ons are impact resistance, solar blue light reducing labelling, and expedited 48-hour reporting.
 
+The standards cards are managed in [`data/standards.csv`](data/standards.csv). Each row contains `name`, `description`, `sections`, and `url`, so names, tested sections, and external links can be updated without changing the HTML.
+
 ## Production
 
 Set `DJANGO_SECRET_KEY`, `DJANGO_DEBUG=False`, `DJANGO_ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS`, and the email variables in `.env.example`. Then run:

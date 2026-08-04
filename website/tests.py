@@ -10,5 +10,7 @@ class WebsiteTests(TestCase):
         self.assertContains(response, "Impact resistance")
         self.assertContains(response, "+£31")
         self.assertContains(response, "+£51")
+        self.assertContains(response, "EN ISO 12312-1:2022")
+        self.assertContains(response, "ANSI Z80.3-2018")
     def test_contact_page(self):
         self.assertEqual(self.client.get(reverse("contact")).status_code, 200)
