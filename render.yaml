@@ -1,0 +1,42 @@
+databases:
+  - name: fowler-optical-testing-db
+    databaseName: fowler_optical_testing
+    user: fowler_optical_testing
+
+services:
+  - type: web
+    name: fowler-optical-testing
+    runtime: python
+    buildCommand: ./build.sh
+    preDeployCommand: python manage.py migrate
+    startCommand: gunicorn config.wsgi:application
+    healthCheckPath: /
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_ALLOWED_HOSTS
+        value: fowler-optical-testing.onrender.com
+      - key: CSRF_TRUSTED_ORIGINS
+        value: https://fowler-optical-testing.onrender.com
+      - key: DATABASE_URL
+        fromDatabase:
+          name: fowler-optical-testing-db
+          property: connectionString
+      - key: DEFAULT_FROM_EMAIL
+        value: website@fowleropticaltesting.co.uk
+      - key: CONTACT_EMAIL
+        value: query@fowleropticaltesting.co.uk
+      - key: EMAIL_BACKEND
+        value: django.core.mail.backends.smtp.EmailBackend
+      - key: EMAIL_USE_TLS
+        value: "True"
+      - key: EMAIL_PORT
+        value: "587"
+      - key: EMAIL_HOST
+        sync: false
+      - key: EMAIL_HOST_USER
+        sync: false
+      - key: EMAIL_HOST_PASSWORD
+        sync: false

@@ -27,7 +27,19 @@ python manage.py collectstatic --noinput
 gunicorn config.wsgi:application
 ```
 
-The included `Procfile` suits platforms such as Render or Railway. Use PostgreSQL and HTTPS for production.
+## Deploy to Render
+
+The repository includes [`render.yaml`](render.yaml), which defines a Python web service and PostgreSQL database. Render recommends this Blueprint approach for Django deployments, with static files collected during the build and database migrations run before the service starts. See the [Render Django deployment guide](https://render.com/docs/deploy-django).
+
+1. Push this repository to GitHub, GitLab, or Bitbucket.
+2. In Render, choose **New → Blueprint** and connect the repository.
+3. Apply the Blueprint. Render will create the web service and database, generate the Django secret key, install dependencies, collect static files, and run migrations.
+4. In the web service’s Environment settings, enter the SMTP values for `EMAIL_HOST`, `EMAIL_HOST_USER`, and `EMAIL_HOST_PASSWORD`.
+5. Add your final custom domain to `DJANGO_ALLOWED_HOSTS` and `CSRF_TRUSTED_ORIGINS`, then configure that domain in Render.
+
+The Blueprint uses the placeholder hostname `fowler-optical-testing.onrender.com`; if Render assigns a different hostname, update those two environment variables before using the service. The contact form is deliberately not active for real delivery until SMTP credentials are configured.
+
+Use PostgreSQL and HTTPS for production. SQLite remains the convenient default for local development.
 
 ## Checks
 
