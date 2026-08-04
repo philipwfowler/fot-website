@@ -3,8 +3,9 @@ from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 from .forms import ContactForm
 from .pricing import get_pricing
+from .services import get_additional_services
 def home(request):
-    return render(request, "home.html", {"pricing": get_pricing()})
+    return render(request, "home.html", {"pricing": get_pricing(), "additional_services": get_additional_services()})
 def contact(request):
     sent = False
     form = ContactForm(request.POST or None)
