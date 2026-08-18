@@ -29,14 +29,38 @@ Run `python build.py` after changing a CSV file. The generated files in `dist/` 
 
 ## Deploy to Render for free
 
-The included [`render.yaml`](render.yaml) defines a Render Static Site. Push the repository to GitHub, GitLab, or Bitbucket, then choose **New → Blueprint** in Render and connect the repository. Render will run the build command and publish `dist/`.
+The included [`render.yaml`](render.yaml) defines a Render Static Site. No database, server, or environment variables are required.
 
-The same setup can be created manually as **New → Static Site**:
+### Option 1: Use the Blueprint
+
+1. Create an empty repository on GitHub, GitLab, or Bitbucket.
+2. From this project directory, commit and push the code:
+
+   ```bash
+   git remote add origin YOUR_REPOSITORY_URL
+   git push -u origin main
+   ```
+
+   If an `origin` remote already exists, use `git push -u origin main` only.
+3. Sign in to [Render](https://dashboard.render.com/).
+4. Choose **New → Blueprint**.
+5. Connect the repository and select the `main` branch.
+6. Review the Blueprint, then choose **Apply**.
+
+Render will run `./build-static.sh`, install Jinja2, generate the HTML in `dist/`, and publish that directory. It will automatically redeploy when new commits are pushed to `main`.
+
+### Option 2: Create the Static Site manually
+
+Choose **New → Static Site**, connect the repository, and use the `main` branch. Enter:
 
 ```text
 Build command: ./build-static.sh
 Publish directory: dist
 ```
+
+Leave the environment-variable section empty, then create the site.
+
+After the first deploy, Render provides an `onrender.com` URL. A custom domain can be added from the site’s **Settings → Custom Domains** page.
 
 Render’s Static Sites are free and receive automatic deploys when the configured Git branch changes. See the [Render Static Sites documentation](https://render.com/docs/static-sites).
 
