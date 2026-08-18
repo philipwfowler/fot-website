@@ -33,19 +33,10 @@ The included [`render.yaml`](render.yaml) defines a Render Static Site. No datab
 
 ### Option 1: Use the Blueprint
 
-1. Create an empty repository on GitHub, GitLab, or Bitbucket.
-2. From this project directory, commit and push the code:
-
-   ```bash
-   git remote add origin YOUR_REPOSITORY_URL
-   git push -u origin main
-   ```
-
-   If an `origin` remote already exists, use `git push -u origin main` only.
-3. Sign in to [Render](https://dashboard.render.com/).
-4. Choose **New → Blueprint**.
-5. Connect the repository and select the `main` branch.
-6. Review the Blueprint, then choose **Apply**.
+1. Sign in to [Render](https://dashboard.render.com/).
+2. Choose **New → Blueprint**.
+3. Select the already-connected repository and the `main` branch.
+4. Review the Blueprint, then choose **Apply**.
 
 Render will run `./build-static.sh`, install Jinja2, generate the HTML in `dist/`, and publish that directory. It will automatically redeploy when new commits are pushed to `main`.
 
