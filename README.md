@@ -1,6 +1,6 @@
 # Fowler Optical Testing website
 
-A small Django website for Fowler Optical Testing LLP. It presents services, standards, charges, requirements, and contact details, with a contact form that sends enquiries by email.
+A lightweight static website for Fowler Optical Testing LLP. Python and Jinja2 build the HTML from the CSV data files; Render serves the generated `dist/` directory as a free Static Site.
 
 ## Local installation
 
@@ -9,49 +9,37 @@ Requires Python 3.11+.
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate       # Windows: .venv\\Scripts\\activate
-python -m pip install --upgrade pip
 pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+python build.py
 ```
 
-Open http://127.0.0.1:8000/. Copy `.env.example` to `.env` and configure SMTP for real email; otherwise submissions are printed in the terminal.
-
-## Updating prices
-
-Edit [`data/pricing.csv`](data/pricing.csv) to change the main service prices. Keep the header row (`service,gbp,usd,eur`) and add one row per service. Prices are shown on the website when the next page request is made; no HTML or Python changes are required.
-
-Optional add-ons are managed separately in [`data/additional_services.csv`](data/additional_services.csv), using the same columns. The current add-ons are impact resistance, solar blue light reducing labelling, and expedited 48-hour reporting.
-
-The standards cards are managed in [`data/standards.csv`](data/standards.csv). Each row contains `name`, `description`, `sections`, and `url`, so names, tested sections, and external links can be updated without changing the HTML.
-
-## Production
-
-Set `DJANGO_SECRET_KEY`, `DJANGO_DEBUG=False`, `DJANGO_ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS`, and the email variables in `.env.example`. Then run:
+Open `dist/index.html` in a browser, or serve it locally with:
 
 ```bash
-python manage.py migrate
-python manage.py collectstatic --noinput
-gunicorn config.wsgi:application
+python3 -m http.server 8000 --directory dist
 ```
 
-## Deploy to Render
+## Updating content
 
-The repository includes [`render.yaml`](render.yaml), which defines a Python web service and PostgreSQL database. Render recommends this Blueprint approach for Django deployments, with static files collected during the build and database migrations run before the service starts. See the [Render Django deployment guide](https://render.com/docs/deploy-django).
+- [`data/pricing.csv`](data/pricing.csv) contains the main per-style prices.
+- [`data/additional_services.csv`](data/additional_services.csv) contains optional add-ons.
+- [`data/standards.csv`](data/standards.csv) contains standard names, descriptions, sections, and URLs.
 
-1. Push this repository to GitHub, GitLab, or Bitbucket.
-2. In Render, choose **New → Blueprint** and connect the repository.
-3. Apply the Blueprint. Render will create the web service and database, generate the Django secret key, install dependencies, collect static files, and run migrations.
-4. In the web service’s Environment settings, enter the SMTP values for `EMAIL_HOST`, `EMAIL_HOST_USER`, and `EMAIL_HOST_PASSWORD`.
-5. Add your final custom domain to `DJANGO_ALLOWED_HOSTS` and `CSRF_TRUSTED_ORIGINS`, then configure that domain in Render.
+Run `python build.py` after changing a CSV file. The generated files in `dist/` are deployment output and are ignored by Git.
 
-The Blueprint uses the placeholder hostname `fowler-optical-testing.onrender.com`; if Render assigns a different hostname, update those two environment variables before using the service. The contact form is deliberately not active for real delivery until SMTP credentials are configured.
+## Deploy to Render for free
 
-Use PostgreSQL and HTTPS for production. SQLite remains the convenient default for local development.
+The included [`render.yaml`](render.yaml) defines a Render Static Site. Push the repository to GitHub, GitLab, or Bitbucket, then choose **New → Blueprint** in Render and connect the repository. Render will run the build command and publish `dist/`.
 
-## Checks
+The same setup can be created manually as **New → Static Site**:
 
-```bash
-python manage.py check
-python manage.py test
+```text
+Build command: ./build-static.sh
+Publish directory: dist
 ```
+
+Render’s Static Sites are free and receive automatic deploys when the configured Git branch changes. See the [Render Static Sites documentation](https://render.com/docs/static-sites).
+
+## Contact
+
+The site uses a `mailto:` link to `query@fowleropticaltesting.co.uk`. Clicking “Email Fowler Optical Testing” opens the visitor’s email application; no server or form-processing service is required.
