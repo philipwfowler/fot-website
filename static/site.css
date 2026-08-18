@@ -59,8 +59,7 @@ nav a { text-decoration: none; font-size: 14px; }
 .cta h2 { font: normal clamp(34px, 4vw, 52px)/1.05 'DM Serif Display', serif; letter-spacing: -.03em; margin: 12px 0; }
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .cards article { padding: 30px; background: white; min-height: 270px; }
-.cards article.accent { background: var(--lime); }
-.number { font-size: 12px; color: var(--muted); }
+.cards article.accent { background: white; }
 h3 { font-size: 21px; line-height: 1.2; margin: 34px 0 12px; }
 article p,
 .two-col p,
