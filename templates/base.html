@@ -1,8 +1,49 @@
 <!doctype html>
 <html lang="en-GB">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{% block title %}Fowler Optical Testing LLP{% endblock %}</title><meta name="description" content="Testing the optical properties of sunglasses against international standards."><link rel="stylesheet" href="static/site.css"></head>
-<body>
-<header class="site-header"><div class="wrap nav"><a class="brand" href="index.html"><span>Fowler</span> Optical Testing LLP<small>Testing the optical properties of sunglasses</small></a><nav><a href="index.html#services">Services</a><a href="index.html#charges">Charges</a><a class="button small" href="contact.html">Contact us</a></nav></div></header>
-<main>{% block content %}{% endblock %}</main>
-<footer><div class="wrap footer-grid"><div><strong>Fowler Optical Testing LLP</strong><p>Independent optical testing for sunglasses manufacturers.</p></div><div><p>82A James Carter Road<br>Mildenhall, Suffolk, IP28 7DE<br>United Kingdom</p></div><div><a href="mailto:query@fowleropticaltesting.co.uk">query@fowleropticaltesting.co.uk</a><p>© 2026 Fowler Optical Testing LLP</p></div></div></footer>
-</body></html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Fowler Optical Testing LLP{% endblock %}</title>
+    <meta name="description" content="Testing the optical properties of sunglasses against international standards.">
+    <link rel="stylesheet" href="static/site.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav">
+        <a class="brand" href="index.html">
+          <span>Fowler</span> Optical Testing LLP
+          <small>Testing the optical properties of sunglasses</small>
+        </a>
+        <nav>
+          <a href="index.html#services">Services</a>
+          <a href="index.html#charges">Charges</a>
+          <a class="button small" href="contact.html">Contact us</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+      <div class="wrap footer-grid">
+        <div>
+          <strong>Fowler Optical Testing LLP</strong>
+          <p>Independent optical testing for sunglasses manufacturers.</p>
+        </div>
+        <div>
+          <p>
+            82A James Carter Road<br>
+            Mildenhall, Suffolk, IP28 7DE<br>
+            United Kingdom
+          </p>
+        </div>
+        <div>
+          <a href="mailto:query@fowleropticaltesting.co.uk">query@fowleropticaltesting.co.uk</a>
+          <p>© 2026 Fowler Optical Testing LLP</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
